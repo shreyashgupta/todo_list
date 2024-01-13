@@ -30,6 +30,16 @@ func (task *Task) PrintTask() {
 	fmt.Printf("%5d | %s | %20s\n", task.Id, content, task.CreatedAt)
 }
 
+func printColumns() {
+	w := 50
+	content := fmt.Sprintf("%*s", -w, fmt.Sprintf("%*s", (w+len("Task"))/2, "Task"))
+	fmt.Printf("%5s | %s | %20s\n", "Id", content, "Created At")
+	for i := 0; i < 100; i++ {
+		fmt.Print("=")
+	}
+	fmt.Println("")
+}
+
 type TodoList struct {
 	ActiveTasks    []Task `json:"active_tasks"`
 	CompletedTasks []Task `json:"completed_tasks"`
@@ -114,6 +124,7 @@ func (todoList *TodoList) writeToFile() error {
 
 func (todoList *TodoList) PrintCompletedTasks() {
 	fmt.Println("")
+	printColumns()
 	if len(todoList.CompletedTasks) == 0 {
 		fmt.Println("No completed tasks")
 	} else {
@@ -126,6 +137,7 @@ func (todoList *TodoList) PrintCompletedTasks() {
 
 func (todoList *TodoList) PrintActiveTasks() {
 	fmt.Println("")
+	printColumns()
 	if len(todoList.ActiveTasks) == 0 {
 		fmt.Println("No active tasks")
 	} else {
